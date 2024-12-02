@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+  <!-- Main Wrapper -->
+  <div class="flex h-screen">
+
+    <!-- Sidebar -->
+    <div class="flex flex-col w-64 h-screen bg-gray-900 text-white">
+      <!-- Logo Section -->
+      <div class="px-6 py-4 flex items-center">
+        <span class="text-2xl font-bold">InnovationCatalyst</span>
+      </div>
+      <!-- Navigation Links -->
+      <nav class="flex flex-col mt-4">
+        <a href="dashboard.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-home w-6 h-6 mr-3"></i>
+          Dashboard
+        </a>
+        <a href="data.html" class="flex items-center py-3 px-6 bg-blue-600 rounded-md text-white">
+          <i class="fas fa-database w-6 h-6 mr-3"></i>
+          Data
+        </a>
+        <a href="todo.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-tasks w-6 h-6 mr-3"></i>
+          To-Do
+        </a>
+        <a href="reports.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-file-alt w-6 h-6 mr-3"></i>
+          Reports
+        </a>
+        <a href="health.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-heartbeat w-6 h-6 mr-3"></i>
+          Health
+        </a>
+      </nav>
+      <!-- Settings and Logout -->
+      <div class="mt-auto flex flex-col p-6">
+        <a href="#" class="flex items-center text-gray-300 hover:bg-gray-700 py-3 px-6 rounded-md">
+          <svg class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1018.364 4.34M9 12h.01M15 12h.01M7.125 12.625a1.5 1.5 0 013 0M13.875 12.625a1.5 1.5 0 113 0M4 6.75A9 9 0 0112 3a9 9 0 018 5.25" />
+          </svg>
+          Settings
+        </a>
+        <a href="#" class="flex items-center text-gray-300 hover:bg-gray-700 py-3 px-6 rounded-md">
+          <svg class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+          </svg>
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="flex-1 p-6 bg-gray-100 overflow-y-auto">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-semibold text-gray-800">Data Settings</h1>
+        <div class="flex items-center space-x-4">
+          <button class="p-2 rounded-full bg-white shadow-md">
+            <span class="text-gray-500">🔔</span>
+          </button>
+          <button class="flex items-center">
+            <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile Picture">
+            <span class="ml-2 font-semibold text-gray-700">John Doe</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Cards Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Welcome Card -->
+        <div class="col-span-2 bg-blue-500 text-white rounded-lg p-6">
+          <h2 class="text-lg font-semibold">🌟 Welcome back!</h2>
+          <p>Nice to see you, Mark Johnson! 🎉</p>
+          <button class="mt-4 bg-white text-blue-500 rounded-md px-4 py-2">View Dashboard</button>
+        </div>
+
+        <!-- User Profiles Section -->
+        <div class="bg-white rounded-lg p-6 shadow-md">
+          <h2 class="text-lg font-semibold text-gray-700 mb-4">👥 User Profiles</h2>
+          
+          <!-- User Information -->
+          <div id="user-info">
+            <div class="user-profile active">
+              <div class="flex items-center mb-4">
+                <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile Picture">
+                <div>
+                  <p class="font-semibold">John Doe</p>
+                  <p class="text-gray-600">Role: Project Manager</p>
+                </div>
+              </div>
+              <p class="text-gray-600 mb-2">You have access to the following features:</p>
+              <ul class="mt-4">
+                <li>🔍 **Personal Level Access**: View and manage your own data.</li>
+                <li>👥 **Manager Level Access**: View and manage data for your team.</li>
+                <li>📊 **KPI Tracking**: Monitor key performance indicators relevant to your role.</li>
+              </ul>
+            </div>
+
+            <div class="user-profile">
+              <div class="flex items-center mb-4">
+                <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/women/1.jpg" alt="Profile Picture">
+                <div>
+                  <p class="font-semibold">John Doe</p>
+                  <p class="text-gray-600">Role: Team Lead</p>
+                </div>
+              </div>
+              <p class="text-gray-600 mb-2">You have access to the following features:</p>
+              <ul class="mt-4">
+                <li>🔍 **Personal Level Access**: View and manage your own data.</li>
+                <li>👥 **Team Level Access**: View and manage data for your team.</li>
+                <li>📊 **KPI Tracking**: Monitor key performance indicators relevant to your role.</li>
+              </ul>
+            </div>
+
+            <div class="user-profile">
+              <div class="flex items-center mb-4">
+                <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/men/2.jpg" alt="Profile Picture">
+                <div>
+                  <p class="font-semibold">John Doe</p>
+                  <p class="text-gray-600">Role: Developer</p>
+                </div>
+              </div>
+              <p class="text-gray-600 mb-2">You have access to the following features:</p>
+              <ul class="mt-4">
+                <li>🔍 **Personal Level Access**: View and manage your own data.</li>
+                <li>👥 **Developer Level Access**: Access project-related data.</li>
+                <li>📊 **KPI Tracking**: Monitor key performance indicators relevant to your role.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Dots for Switching -->
+          <div class="flex justify-center mt-4">
+            <span class="dot active" onclick="switchUser(0)"></span>
+            <span class="dot" onclick="switchUser(1)"></span>
+            <span class="dot" onclick="switchUser(2)"></span>
+          </div>
+        </div>
+
+        <!-- Platform Settings -->
+        <div class="bg-white rounded-lg p-6 shadow-md">
+          <h2 class="text-lg font-semibold text-gray-700 mb-4">⚙️ Platform Settings</h2>
+          <p class="text-gray-600 mb-4">Choose your preferred data collection points for seamless integration with existing company tools. You can enable or disable data sharing for each platform.</p>
+          <ul>
+            <li class="flex items-center justify-between mb-4">
+              <span><i class="fab fa-slack text-green-500"></i> Slack</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'slack')" />
+                <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+              </label>
+            </li>
+            <li class="flex items-center justify-between mb-4">
+              <span><i class="fab fa-google text-red-500"></i> Google</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'google')" />
+                <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+              </label>
+            </li>
+            <li class="flex items-center justify-between mb-4">
+              <span><i class="fab fa-trello text-blue-500"></i> Trello</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'trello')" />
+                <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+              </label>
+            </li>
+            <li class="flex items-center justify-between mb-4">
+              <span><i class="fab fa-jira text-blue-700"></i> Jira</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'jira')" />
+                <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+              </label>
+            </li>
+            <li class="flex items-center justify-between mb-4">
+              <span><i class="fab fa-asana text-orange-500"></i> Asana</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'asana')" />
+                <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+              </label>
+            </li>
+            <li class="flex items-center justify-between mb-4">
+              <span><i class="fab fa-microsoft text-blue-600"></i> Teams</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'teams')" />
+                <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+              </label>
+            </li>
+            <li class="flex items-center justify-between mb-4">
+              <span><i class="fas fa-chart-line text-purple-500"></i> AI Parsed (Reports)</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'ai-parsed')" />
+                <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Platform Product Settings -->
+        <div class="bg-white rounded-lg p-6 shadow-md mt-6">
+            <h2 class="text-lg font-semibold text-gray-700 mb-4">⚙️ Platform Product Settings</h2>
+            <p class="text-gray-600 mb-4">Choose your preferred physical products for seamless integration with existing company tools. You can enable or disable data sharing for each product.</p>
+            <ul>
+                <li class="flex items-center justify-between mb-4">
+                    <span><i class="fas fa-watch text-blue-500"></i> Smartwatch</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'smartwatch')" />
+                        <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                        <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+                    </label>
+                </li>
+                <li class="flex items-center justify-between mb-4">
+                    <span><i class="fas fa-vr-cardboard text-green-500"></i> VR Glasses</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'vr-glasses')" />
+                        <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                        <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+                    </label>
+                </li>
+                <li class="flex items-center justify-between mb-4">
+                    <span><i class="fab fa-windows text-blue-600"></i> Windows PC</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'windows-pc')" />
+                        <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                        <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+                    </label>
+                </li>
+                <li class="flex items-center justify-between mb-4">
+                    <span><i class="fab fa-apple text-gray-800"></i> Mac</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'mac')" />
+                        <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                        <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+                    </label>
+                </li>
+                <li class="flex items-center justify-between mb-4">
+                    <span><i class="fas fa-mobile-alt text-green-500"></i> Mobile Device</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'mobile-device')" />
+                        <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                        <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+                    </label>
+                </li>
+                <li class="flex items-center justify-between mb-4">
+                    <span><i class="fas fa-tablet-alt text-orange-500"></i> Tablet</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only" onchange="toggleSwitch(this, 'tablet')" />
+                        <div class="w-11 h-6 bg-gray-200 rounded-full shadow-inner"></div>
+                        <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transition"></div>
+                    </label>
+                </li>
+            </ul>
+
+            <!-- Add Product Section -->
+            <div class="mt-6">
+              <h3 class="text-lg font-semibold text-gray-700 mb-2">➕ Add a Product</h3>
+              <div class="flex items-center">
+                <input type="text" id="newProduct" class="border border-gray-300 rounded-md p-2 flex-1" placeholder="Enter product name (e.g., Apple Watch)" />
+                <button class="ml-2 bg-blue-500 text-white rounded-md px-4 py-2" onclick="addProduct()">Add</button>
+              </div>
+            </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="col-span-2 bg-white rounded-lg p-6 shadow-md">
+          <h2 class="text-lg font-semibold text-gray-700 mb-4">📂 Projects</h2>
+          <ul>
+            <li class="flex justify-between items-center mb-4">
+              <div>
+                <h3 class="font-semibold">Project Alpha</h3>
+                <p class="text-gray-600">A cutting-edge platform for managing team workflows.</p>
+              </div>
+              <a href="#" class="text-blue-500 hover:underline">View Members (5)</a>
+            </li>
+            <li class="flex justify-between items-center mb-4">
+              <div>
+                <h3 class="font-semibold">Project Beta</h3>
+                <p class="text-gray-600">An innovative solution for data analytics and reporting.</p>
+              </div>
+              <a href="#" class="text-blue-500 hover:underline">View Members (8)</a>
+            </li>
+            <li class="flex justify-between items-center mb-4">
+              <div>
+                <h3 class="font-semibold">Project Gamma</h3>
+                <p class="text-gray-600">A collaborative tool for enhancing team communication.</p>
+              </div>
+              <a href="#" class="text-blue-500 hover:underline">View Members (3)</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function toggleSwitch(element, platform) {
+      const isChecked = element.checked;
+      console.log(`${platform} data sharing is now ${isChecked ? 'enabled' : 'disabled'}.`);
+      // Here you can add further logic to handle the state change, e.g., save to a database or local storage.
+    }
+
+    function switchUser(index) {
+      const profiles = document.querySelectorAll('.user-profile');
+      const dots = document.querySelectorAll('.dot');
+
+      profiles.forEach((profile, i) => {
+        profile.classList.remove('active');
+        dots[i].classList.remove('active');
+      });
+
+      profiles[index].classList.add('active');
+      dots[index].classList.add('active');
+    }
+  </script>
+
+  <style>
+    /* Custom styles for the switch */
+    input:checked ~ .dot {
+      transform: translateX(100%);
+      background-color: #4caf50; /* Change color when checked */
+    }
+    input:checked ~ .w-11 {
+      background-color: #4caf50; /* Change background when checked */
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif; /* Apply the Roboto font */
+    }
+    .user-profile {
+      display: none;
+    }
+    .user-profile.active {
+      display: block;
+    }
+    .dot {
+      height: 10px;
+      width: 10px;
+      margin: 0 5px;
+      background-color: #3b82f6; /* Match the banner color */
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .dot.active {
+      background-color: #1d4ed8; /* Active state color */
+    }
+  </style>
+</body>
+</html>

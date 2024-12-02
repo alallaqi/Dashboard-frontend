@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Innovation Catalyst - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+
+  <!-- Header -->
+  <header class="bg-white p-4 shadow flex justify-between items-center">
+    <div class="text-2xl font-bold">
+      <span class="text-black">Innovation</span><span class="text-blue-500">Catalyst</span>
+    </div>
+    <nav>
+      <a href="#home" class="text-gray-700 px-4">Home</a>
+      <a href="#services" class="text-gray-700 px-4">Services</a>
+      <a href="#about" class="text-gray-700 px-4">About Us</a>
+      <a href="#contact" class="text-gray-700 px-4">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-screen-lg mx-auto text-center my-8">
+    <h1 class="text-4xl font-bold mb-4">Chat with your AI Confidential Therapist</h1>
+    <p class="text-gray-600 mb-8">
+      From guided meditations to one-on-one coaching, our team of clinical experts and trained coaches work together to bring you science-backed care.
+    </p>
+
+    <!-- Navigation Button to Dashboard -->
+    <a href="dashboard.html" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 mb-8 inline-block">
+      Go to Dashboard
+    </a>
+
+    <!-- Video Carousel -->
+    <div class="carousel-container overflow-x-auto flex gap-4 mt-8 px-4 cursor-grab" id="carousel">
+      <!-- Example video cards -->
+      <div class="card-item bg-gray-200 p-4 rounded-lg min-w-[250px]">
+        <video class="w-full h-40 rounded mb-2" src="path_to_video1.mp4" autoplay loop muted></video>
+        <h2 class="text-lg font-semibold">Eve Lewis</h2>
+        <p class="text-gray-500 text-sm">Meditation and Mindfulness Teacher</p>
+      </div>
+      <div class="card-item bg-gray-200 p-4 rounded-lg min-w-[250px]">
+        <video class="w-full h-40 rounded mb-2" src="path_to_video2.mp4" autoplay loop muted></video>
+        <h2 class="text-lg font-semibold">Kessonga Giscombe</h2>
+        <p class="text-gray-500 text-sm">Mindfulness Teacher</p>
+      </div>
+      <!-- Add more video cards as needed -->
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif; /* Apply the Roboto font */
+    }
+    .progress {
+      height: 20px;
+      border-radius: 5px;
+      background-color: #e0e0e0;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      transition: width 0.5s;
+    }
+    .kpi-card {
+      transition: transform 0.3s;
+    }
+    .kpi-card:hover {
+      transform: scale(1.05);
+    }
+    /* Modal Styles */
+    #kpiModal {
+      display: none; /* Hidden by default */
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+  <!-- Main Wrapper -->
+  <div class="flex h-screen">
+    
+
+    <!-- Sidebar -->
+    <div class="flex flex-col w-64 h-screen bg-gray-900 text-white">
+      <div class="px-6 py-4 flex items-center">
+        <span class="text-2xl font-bold text-blue-500">Innovation</span>
+        <span class="text-2xl font-bold text-white">Catalyst</span>
+      </div>
+      <nav class="flex flex-col mt-4">
+        <a href="dashboard.html" class="flex items-center py-3 px-6 bg-blue-600 rounded-md text-white">
+          <i class="fas fa-home w-6 h-6 mr-3"></i>
+          Dashboard
+        </a>
+        <a href="data.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-database w-6 h-6 mr-3"></i>
+          Data
+        </a>
+        <a href="todo.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-tasks w-6 h-6 mr-3"></i>
+          To-Do
+        </a>
+        <a href="reports.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-file-alt w-6 h-6 mr-3"></i>
+          Reports
+        </a>
+        <a href="health.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-heartbeat w-6 h-6 mr-3"></i>
+          Health
+        </a>
+        <a href="recommendations.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-star w-6 h-6 mr-3"></i>
+          Recommendations
+        </a>
+      </nav>
+      <div class="mt-auto flex flex-col p-6">
+        <a href="data.html" class="flex items-center text-gray-300 hover:bg-gray-700 py-3 px-6 rounded-md">
+          <svg class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1018.364 4.34M9 12h.01M15 12h.01M7.125 12.625a1.5 1.5 0 013 0M13.875 12.625a1.5 1.5 0 113 0M4 6.75A9 9 0 0112 3a9 9 0 018 5.25" />
+          </svg>
+          Settings
+        </a>
+        <a href="#" class="flex items-center text-gray-300 hover:bg-gray-700 py-3 px-6 rounded-md">
+          <svg class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+          </svg>
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="flex-1 p-6 bg-gray-100 overflow-y-auto">
+      <!-- Profile Navigation -->
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-semibold text-gray-800">Welcome back, John Doe! 🎉</h1>
+        <div class="flex items-center space-x-4">
+          <button class="p-2 rounded-full bg-white shadow-md">
+            <span class="text-gray-500">🔔</span>
+          </button>
+          <button class="flex items-center">
+            <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile Picture">
+            <span class="ml-2 font-semibold text-gray-700">John Doe</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Welcome Card -->
+      <div class="bg-blue-500 text-white rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold">🌟 Welcome back!</h2>
+        <p id="user-greeting">Nice to see you, John Doe! 🎉</p>
+        <button class="mt-4 bg-white text-blue-500 rounded-md px-4 py-2">View Data</button>
+      </div>
+
+      <!-- Filters -->
+      <div class="flex items-center mb-6">
+        <div class="mr-4">
+          <label for="project-filter" class="block text-gray-700 font-semibold mb-1">Filter by Project:</label>
+          <select id="project-filter" class="border border-gray-300 rounded-md p-1 text-sm">
+            <option value="all">All Projects</option>
+            <option value="project-alpha">Project Alpha</option>
+            <option value="project-beta">Project Beta</option>
+            <option value="project-gamma">Project Gamma</option>
+          </select>
+        </div>
+        <div>
+          <label for="member-filter" class="block text-gray-700 font-semibold mb-1">Filter by Member:</label>
+          <select id="member-filter" class="border border-gray-300 rounded-md p-1 text-sm">
+            <option value="all">All Members</option>
+            <option value="john-doe">John Doe</option>
+            <option value="mark-johnson">Mark Johnson</option>
+            <option value="jane-smith">Jane Smith</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- KPI Container -->
+      <div id="kpi-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- KPI Item: Mental Wellbeing -->
+        <div class="kpi-card bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-lg p-4 shadow-md">
+          <div class="flex items-center mb-2">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/mental-health.png" alt="Mental Wellbeing" class="w-10 h-10 mr-2">
+            <span class="font-semibold">Mental Wellbeing</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-white" style="width: 75%;"></div>
+          </div>
+          <p class="text-gray-200 mt-2">75% of employees report good mental wellbeing.</p>
+          <p class="text-gray-200 text-sm">Tool: Survey Tool, Gathered: Weekly</p>
+        </div>
+
+        <!-- KPI Item: Engagement -->
+        <div class="kpi-card bg-gradient-to-r from-yellow-400 to-red-500 text-white rounded-lg p-4 shadow-md">
+          <div class="flex items-center mb-2">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/engagement.png" alt="Engagement" class="w-10 h-10 mr-2">
+            <span class="font-semibold">Engagement</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-white" style="width: 65%;"></div>
+          </div>
+          <p class="text-gray-200 mt-2">65% engagement in team activities.</p>
+          <p class="text-gray-200 text-sm">Tool: Team Builder, Gathered: Bi-Weekly</p>
+        </div>
+
+        <!-- KPI Item: Morale -->
+        <div class="kpi-card bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-lg p-4 shadow-md">
+          <div class="flex items-center mb-2">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/morale.png" alt="Morale" class="w-10 h-10 mr-2">
+            <span class="font-semibold">Morale</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-white" style="width: 70%;"></div>
+          </div>
+          <p class="text-gray-200 mt-2">70% of employees feel positive morale.</p>
+          <p class="text-gray-200 text-sm">Tool: Pulse Survey, Gathered: Monthly</p>
+        </div>
+
+        <!-- KPI Item: Communication -->
+        <div class="kpi-card bg-gradient-to-r from-purple-400 to-indigo-500 text-white rounded-lg p-4 shadow-md">
+          <div class="flex items-center mb-2">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/communication.png" alt="Communication" class="w-10 h-10 mr-2">
+            <span class="font-semibold">Communication</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-white" style="width: 80%;"></div>
+          </div>
+          <p class="text-gray-200 mt-2">80% satisfaction in communication.</p>
+          <p class="text-gray-200 text-sm">Tool: Communication App, Gathered: Weekly</p>
+        </div>
+
+        <!-- KPI Item: Screen Time -->
+        <div class="kpi-card bg-gradient-to-r from-orange-400 to-yellow-500 text-white rounded-lg p-4 shadow-md">
+          <div class="flex items-center mb-2">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/screen-time.png" alt="Screen Time" class="w-10 h-10 mr-2">
+            <span class="font-semibold">Screen Time</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-white" style="width: 60%;"></div>
+          </div>
+          <p class="text-gray-200 mt-2">Average screen time is 6 hours/day.</p>
+          <p class="text-gray-200 text-sm">Tool: Time Tracker, Gathered: Daily</p>
+        </div>
+
+        <!-- KPI Item: Team Relationship -->
+        <div class="kpi-card bg-gradient-to-r from-teal-400 to-green-500 text-white rounded-lg p-4 shadow-md">
+          <div class="flex items-center mb-2">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/team-relationship.png" alt="Team Relationship" class="w-10 h-10 mr-2">
+            <span class="font-semibold">Team Relationship</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-white" style="width: 90%;"></div>
+          </div>
+          <p class="text-gray-200 mt-2">90% of employees feel connected to their team.</p>
+          <p class="text-gray-200 text-sm">Tool: Team Survey, Gathered: Quarterly</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="kpiModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+      <h2 class="text-lg font-semibold text-gray-800">AI Analysis & Recommendations</h2>
+      <p class="text-gray-600 mt-2">To view all AI analysis and recommendations, please visit the To-Do page.</p>
+      <div class="mt-4 flex justify-end">
+        <button id="closeModal" class="bg-blue-500 text-white rounded-md px-4 py-2">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to update user greeting and KPI data based on selected member
+    function updateUserData(selectedMember) {
+      const userGreeting = document.getElementById('user-greeting');
+      const kpiContainer = document.getElementById('kpi-container');
+
+      // Clear existing KPI items
+      kpiContainer.innerHTML = '';
+
+      // Update greeting and KPIs based on selected member
+      if (selectedMember === 'all') {
+        userGreeting.textContent = 'Showing KPIs for all members! 🎉';
+        // Display all KPIs for all members
+        kpiContainer.innerHTML += `
+          <div class="kpi-card bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/mental-health.png" alt="Mental Wellbeing" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Mental Wellbeing</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 75%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">75% of employees report good mental wellbeing.</p>
+            <p class="text-gray-200 text-sm">Tool: Survey Tool, Gathered: Weekly</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-yellow-400 to-red-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/engagement.png" alt="Engagement" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Engagement</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 65%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">65% engagement in team activities.</p>
+            <p class="text-gray-200 text-sm">Tool: Team Builder, Gathered: Bi-Weekly</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/morale.png" alt="Morale" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Morale</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 70%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">70% of employees feel positive morale.</p>
+            <p class="text-gray-200 text-sm">Tool: Pulse Survey, Gathered: Monthly</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-purple-400 to-indigo-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/communication.png" alt="Communication" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Communication</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 80%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">80% satisfaction in communication.</p>
+            <p class="text-gray-200 text-sm">Tool: Communication App, Gathered: Weekly</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-orange-400 to-yellow-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/screen-time.png" alt="Screen Time" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Screen Time</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 60%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">Average screen time is 6 hours/day.</p>
+            <p class="text-gray-200 text-sm">Tool: Time Tracker, Gathered: Daily</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-teal-400 to-green-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/team-relationship.png" alt="Team Relationship" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Team Relationship</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 90%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">90% of employees feel connected to their team.</p>
+            <p class="text-gray-200 text-sm">Tool: Team Survey, Gathered: Quarterly</p>
+          </div>
+        `;
+      } else if (selectedMember === 'john-doe') {
+        userGreeting.textContent = 'Nice to see you, John Doe! 🎉';
+        kpiContainer.innerHTML += `
+          <div class="kpi-card bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/mental-health.png" alt="Mental Wellbeing" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Mental Wellbeing</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 75%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">75% of employees report good mental wellbeing.</p>
+            <p class="text-gray-200 text-sm">Tool: Survey Tool, Gathered: Weekly</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-yellow-400 to-red-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/engagement.png" alt="Engagement" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Engagement</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 65%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">65% engagement in team activities.</p>
+            <p class="text-gray-200 text-sm">Tool: Team Builder, Gathered: Bi-Weekly</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/morale.png" alt="Morale" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Morale</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 70%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">70% of employees feel positive morale.</p>
+            <p class="text-gray-200 text-sm">Tool: Pulse Survey, Gathered: Monthly</p>
+          </div>
+        `;
+      } else if (selectedMember === 'mark-johnson') {
+        userGreeting.textContent = 'Nice to see you, Mark Johnson! 🎉';
+        kpiContainer.innerHTML += `
+          <div class="kpi-card bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/morale.png" alt="Morale" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Morale</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 70%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">70% of employees feel positive morale.</p>
+            <p class="text-gray-200 text-sm">Tool: Pulse Survey, Gathered: Monthly</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-purple-400 to-indigo-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/communication.png" alt="Communication" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Communication</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 80%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">80% satisfaction in communication.</p>
+            <p class="text-gray-200 text-sm">Tool: Communication App, Gathered: Weekly</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-orange-400 to-yellow-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/screen-time.png" alt="Screen Time" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Screen Time</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 60%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">Average screen time is 6 hours/day.</p>
+            <p class="text-gray-200 text-sm">Tool: Time Tracker, Gathered: Daily</p>
+          </div>
+        `;
+      } else if (selectedMember === 'jane-smith') {
+        userGreeting.textContent = 'Nice to see you, Jane Smith! 🎉';
+        kpiContainer.innerHTML += `
+          <div class="kpi-card bg-gradient-to-r from-purple-400 to-indigo-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/communication.png" alt="Communication" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Communication</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 80%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">80% satisfaction in communication.</p>
+            <p class="text-gray-200 text-sm">Tool: Communication App, Gathered: Weekly</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/mental-health.png" alt="Mental Wellbeing" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Mental Wellbeing</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 75%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">75% of employees report good mental wellbeing.</p>
+            <p class="text-gray-200 text-sm">Tool: Survey Tool, Gathered: Weekly</p>
+          </div>
+          <div class="kpi-card bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-lg p-4 shadow-md">
+            <div class="flex items-center mb-2">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/morale.png" alt="Morale" class="w-10 h-10 mr-2">
+              <span class="font-semibold">Morale</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-white" style="width: 70%;"></div>
+            </div>
+            <p class="text-gray-200 mt-2">70% of employees feel positive morale.</p>
+            <p class="text-gray-200 text-sm">Tool: Pulse Survey, Gathered: Monthly</p>
+          </div>
+        `;
+      }
+    }
+
+    // Event listeners for filters
+    document.getElementById('project-filter').addEventListener('change', function() {
+      const selectedProject = this.value;
+      console.log(`Filtering by project: ${selectedProject}`);
+      // Logic to filter KPIs based on selected project can be added here
+      // For now, we can assume all KPIs are shown for each project
+      updateUserData('all'); // Show all KPIs for the selected project
+    });
+
+    document.getElementById('member-filter').addEventListener('change', function() {
+      const selectedMember = this.value;
+      updateUserData(selectedMember);
+    });
+
+    // Function to show the modal
+    function showModal() {
+      document.getElementById('kpiModal').classList.remove('hidden');
+    }
+
+    // Function to close the modal
+    function closeModal() {
+      document.getElementById('kpiModal').classList.add('hidden');
+    }
+
+    // Event listener for closing the modal
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+
+    // Add event listeners to KPI buttons
+    const kpiCards = document.querySelectorAll('.kpi-card');
+    kpiCards.forEach(card => {
+      card.addEventListener('click', showModal);
+    });
+  </script>
+
+</body>
+</html>

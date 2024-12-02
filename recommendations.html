@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recommendations</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif; /* Apply the Roboto font */
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+  <!-- Main Wrapper -->
+  <div class="flex h-screen">
+
+    <!-- Sidebar -->
+    <div class="flex flex-col w-64 h-screen bg-gray-900 text-white">
+      <div class="px-6 py-4 flex items-center">
+        <span class="text-2xl font-bold text-blue-500">Innovation</span>
+        <span class="text-2xl font-bold text-white">Catalyst</span>
+      </div>
+      <nav class="flex flex-col mt-4">
+        <a href="dashboard.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-home w-6 h-6 mr-3"></i>
+          Dashboard
+        </a>
+        <a href="data.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-database w-6 h-6 mr-3"></i>
+          Data
+        </a>
+        <a href="todo.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-tasks w-6 h-6 mr-3"></i>
+          To-Do
+        </a>
+        <a href="reports.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-file-alt w-6 h-6 mr-3"></i>
+          Reports
+        </a>
+        <a href="health.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-heartbeat w-6 h-6 mr-3"></i>
+          Health
+        </a>
+        <a href="recommendations.html" class="flex items-center py-3 px-6 bg-blue-600 rounded-md text-white">
+          <i class="fas fa-star w-6 h-6 mr-3"></i>
+          Recommendations
+        </a>
+      </nav>
+      <div class="mt-auto flex flex-col p-6">
+        <a href="data.html" class="flex items-center text-gray-300 hover:bg-gray-700 py-3 px-6 rounded-md">
+          <svg class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1018.364 4.34M9 12h.01M15 12h.01M7.125 12.625a1.5 1.5 0 013 0M13.875 12.625a1.5 1.5 0 113 0M4 6.75A9 9 0 0112 3a9 9 0 018 5.25" />
+          </svg>
+          Settings
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-semibold text-gray-800">Recommendations</h1>
+        <div class="flex items-center space-x-4">
+          <button class="flex items-center p-2 rounded-full bg-white shadow-md">
+            <span class="text-gray-500">🔔</span>
+          </button>
+          <button class="flex items-center">
+            <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile Picture">
+            <span class="ml-2 font-semibold text-gray-700">John Doe</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Deals Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Deal 1 -->
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <img src="https://via.placeholder.com/150" alt="Laptop Deals Bundle" class="w-full h-32 object-cover rounded-md">
+          <h2 class="text-lg font-semibold mt-2">Laptop Deals Bundle</h2>
+          <p class="text-gray-600">Exclusive offers on the latest laptops. Perfect for students and professionals alike.</p>
+          <button class="mt-2 bg-blue-500 text-white rounded-md px-4 py-2">Explore Laptop Deals</button>
+        </div>
+
+        <!-- Deal 2 -->
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <img src="https://via.placeholder.com/150" alt="Integrations Support" class="w-full h-32 object-cover rounded-md">
+          <h2 class="text-lg font-semibold mt-2">Integrations Support</h2>
+          <p class="text-gray-600">Get expert assistance with integrating our solutions into your existing systems.</p>
+          <button class="mt-2 bg-blue-500 text-white rounded-md px-4 py-2">Request Support</button>
+        </div>
+
+        <!-- Deal 3 -->
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <img src="https://via.placeholder.com/150" alt="Rings Deal for the Whole Team" class="w-full h-32 object-cover rounded-md">
+          <h2 class="text-lg font-semibold mt-2">Rings Deal for the Whole Team</h2>
+          <p class="text-gray-600">Special pricing on team rings. Perfect for corporate events and team building.</p>
+          <button class="mt-2 bg-blue-500 text-white rounded-md px-4 py-2">Inquire About Team Rings</button>
+        </div>
+
+        <!-- Deal 4 -->
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <img src="https://via.placeholder.com/150" alt="Watches Package" class="w-full h-32 object-cover rounded-md">
+          <h2 class="text-lg font-semibold mt-2">Watches Package</h2>
+          <p class="text-gray-600">Elegant watches for every occasion. Discover our exclusive collection.</p>
+          <button class="mt-2 bg-blue-500 text-white rounded-md px-4 py-2">View Watch Collection</button>
+        </div>
+
+        <!-- Deal 5 -->
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <img src="https://via.placeholder.com/150" alt="Microsoft Support Channel" class="w-full h-32 object-cover rounded-md">
+          <h2 class="text-lg font-semibold mt-2">Microsoft Support Channel</h2>
+          <p class="text-gray-600">Access dedicated support for Microsoft products and services.</p>
+          <button class="mt-2 bg-blue-500 text-white rounded-md px-4 py-2">Get Microsoft Support</button>
+        </div>
+
+        <!-- Deal 6 -->
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <img src="https://via.placeholder.com/150" alt="Additional Deals" class="w-full h-32 object-cover rounded-md">
+          <h2 class="text-lg font-semibold mt-2">Additional Deals</h2>
+          <p class="text-gray-600">Explore a variety of additional deals tailored to your needs.</p>
+          <button class="mt-2 bg-blue-500 text-white rounded-md px-4 py-2">Discover More Deals</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

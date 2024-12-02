@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif; /* Apply the Roboto font */
+    }
+    .kpi-card {
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-radius: 15px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #6e7dff, #a8c0ff);
+      color: white;
+      cursor: pointer; /* Change cursor to pointer */
+    }
+    .kpi-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    .locked {
+      background: #4b4b4b; /* Dark grey */
+      color: white;
+    }
+    .lock-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .open-lock-icon {
+      color: #FFD700; /* Gold color for open lock */
+    }
+    /* Modal styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1000; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Could be more or less, depending on screen size */
+      border-radius: 15px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+  <!-- Main Wrapper -->
+  <div class="flex h-screen">
+
+    <!-- Sidebar -->
+    <div class="flex flex-col w-64 h-screen bg-gray-900 text-white">
+      <div class="px-6 py-4 flex items-center">
+        <span class="text-2xl font-bold text-blue-500">Innovation</span>
+        <span class="text-2xl font-bold text-white">Catalyst</span>
+      </div>
+      <nav class="flex flex-col mt-4">
+        <a href="dashboard.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-home w-6 h-6 mr-3"></i>
+          Dashboard
+        </a>
+        <a href="data.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-database w-6 h-6 mr-3"></i>
+          Data
+        </a>
+        <a href="todo.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-tasks w-6 h-6 mr-3"></i>
+          To-Do
+        </a>
+        <a href="reports.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-file-alt w-6 h-6 mr-3"></i>
+          Reports
+        </a>
+        <a href="health.html" class="flex items-center py-3 px-6 bg-blue-600 rounded-md text-white">
+          <i class="fas fa-heartbeat w-6 h-6 mr-3"></i>
+          Health
+        </a>
+        <a href="recommendations.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-star w-6 h-6 mr-3"></i>
+          Recommendations
+        </a>
+      </nav>
+      <div class="mt-auto flex flex-col p-6">
+        <a href="data.html" class="flex items-center text-gray-300 hover:bg-gray-700 py-3 px-6 rounded-md">
+          <svg class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1018.364 4.34M9 12h.01M15 12h.01M7.125 12.625a1.5 1.5 0 013 0M13.875 12.625a1.5 1.5 0 113 0M4 6.75A9 9 0 0112 3a9 9 0 018 5.25" />
+          </svg>
+          Settings
+        </a>
+        <a href="#" class="flex items-center text-gray-300 hover:bg-gray-700 py-3 px-6 rounded-md">
+          <svg class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+          </svg>
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="flex-1 p-6 bg-gray-100 overflow-y-auto">
+      <!-- Profile Navigation -->
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-semibold text-gray-800">Health Dashboard</h1>
+        <div class="flex items-center space-x-4">
+          <button class="p-2 rounded-full bg-white shadow-md">
+            <span class="text-gray-500">🔔</span>
+          </button>
+          <button class="flex items-center">
+            <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile Picture">
+            <span class="ml-2 font-semibold text-gray-700">John Doe</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Stress KPI -->
+        <div class="kpi-card" onclick="openModal('Stress Level', '75%', 'Smartwatch', 'path/to/stress-chart.png')">
+          <h2 class="text-lg font-semibold">Stress Level <i class="fas fa-sad-tear"></i></h2>
+          <p class="text-2xl">75%</p>
+          <p class="text-sm text-gray-300">Gathered from: Smartwatch</p>
+          <div class="lock-icon open-lock-icon"><i class="fas fa-lock-open"></i></div>
+        </div>
+
+        <!-- Anxiety KPI -->
+        <div class="kpi-card locked" onclick="openModal('Anxiety Level', 'Locked', 'N/A', 'path/to/anxiety-chart.png')">
+          <h2 class="text-lg font-semibold">Anxiety Level <i class="fas fa-exclamation-circle"></i></h2>
+          <p class="text-2xl">Locked</p>
+          <p class="text-sm text-gray-300">Gathered from: N/A</p>
+          <div class="lock-icon"><i class="fas fa-lock"></i></div>
+        </div>
+
+        <!-- Energy KPI -->
+        <div class="kpi-card" onclick="openModal('Energy Level', '85%', 'Fitness Tracker', 'path/to/energy-chart.png')">
+          <h2 class="text-lg font-semibold">Energy Level <i class="fas fa-bolt"></i></h2>
+          <p class="text-2xl">85%</p>
+          <p class="text-sm text-gray-300">Gathered from: Fitness Tracker</p>
+          <div class="lock-icon open-lock-icon"><i class="fas fa-lock-open"></i></div>
+        </div>
+
+        <!-- Heart Rate KPI -->
+        <div class="kpi-card locked" onclick="openModal('Heart Rate', 'Locked', 'N/A', 'path/to/heart-rate-chart.png')">
+          <h2 class="text-lg font-semibold">Heart Rate <i class="fas fa-heartbeat"></i></h2>
+          <p class="text-2xl">Locked</p>
+          <p class="text-sm text-gray-300">Gathered from: N/A</p>
+          <div class="lock-icon"><i class="fas fa-lock"></i></div>
+        </div>
+
+        <!-- Sleep Patterns KPI -->
+        <div class="kpi-card" onclick="openModal('Sleep Patterns', '7 hours', 'Sleep Monitor', 'path/to/sleep-chart.png')">
+          <h2 class="text-lg font-semibold">Sleep Patterns <i class="fas fa-moon"></i></h2>
+          <p class="text-2xl">7 hours</p>
+          <p class="text-sm text-gray-300">Gathered from: Sleep Monitor</p>
+          <div class="lock-icon"><i class="fas fa-lock"></i></div>
+        </div>
+
+        <!-- Blood Pressure KPI -->
+        <div class="kpi-card" onclick="openModal('Blood Pressure', '120/80 mmHg', 'Blood Pressure Monitor', 'path/to/blood-pressure-chart.png')">
+          <h2 class="text-lg font-semibold">Blood Pressure <i class="fas fa-heart"></i></h2>
+          <p class="text-2xl">120/80 mmHg</p>
+          <p class="text-sm text-gray-300">Gathered from: Blood Pressure Monitor</p>
+          <div class="lock-icon"><i class="fas fa-lock"></i></div>
+        </div>
+
+        <!-- Body Temperature KPI -->
+        <div class="kpi-card" onclick="openModal('Body Temperature', '98.6°F', 'Thermometer', 'path/to/body-temp-chart.png')">
+          <h2 class="text-lg font-semibold">Body Temperature <i class="fas fa-thermometer-three-quarters"></i></h2>
+          <p class="text-2xl">98.6°F</p>
+          <p class="text-sm text-gray-300">Gathered from: Thermometer</p>
+          <div class="lock-icon"><i class="fas fa-lock"></i></div>
+        </div>
+
+        <!-- Hydration Level KPI -->
+        <div class="kpi-card" onclick="openModal('Hydration Level', '70%', 'Hydration Tracker', 'path/to/hydration-chart.png')">
+          <h2 class="text-lg font-semibold">Hydration Level <i class="fas fa-water"></i></h2>
+          <p class="text-2xl">70%</p>
+          <p class="text-sm text-gray-300">Gathered from: Hydration Tracker</p>
+          <div class="lock-icon"><i class="fas fa-lock"></i></div>
+        </div>
+
+        <!-- Caloric Intake KPI -->
+        <div class="kpi-card locked" onclick="openModal('Caloric Intake', 'Locked', 'N/A', 'path/to/caloric-intake-chart.png')">
+          <h2 class="text-lg font-semibold">Caloric Intake <i class="fas fa-hamburger"></i></h2>
+          <p class="text-2xl">Locked</p>
+          <p class="text-sm text-gray-300">Gathered from: N/A</p>
+          <div class="lock-icon"><i class="fas fa-lock"></i></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title" class="text-lg font-semibold"></h2>
+      <canvas id="modal-chart" class="w-full h-auto mb-4"></canvas>
+      <p id="modal-description" class="text-sm text-gray-700"></p>
+    </div>
+  </div>
+
+  <script>
+    let chart; // Declare a variable to hold the chart instance
+
+    function openModal(title, value, tool, imagePath) {
+      document.getElementById('modal-title').innerText = title + ': ' + value;
+      document.getElementById('modal-description').innerText = 'Gathered from: ' + tool;
+
+      const ctx = document.getElementById('modal-chart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          datasets: [{
+            label: title,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            data: [65, 59, 80, 81, 56, 55, 40]
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      document.getElementById('myModal').style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById('myModal').style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('myModal');
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+
+</body>
+</html>

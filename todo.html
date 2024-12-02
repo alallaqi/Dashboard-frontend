@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif; /* Apply the Roboto font */
+    }
+    /* Modal styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 50;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+  <!-- Main Wrapper -->
+  <div class="flex h-screen">
+
+    <!-- Sidebar -->
+    <div class="flex flex-col w-64 h-screen bg-gray-900 text-white">
+      <div class="px-6 py-4 flex items-center">
+        <span class="text-2xl font-bold text-blue-500">Innovation</span>
+        <span class="text-2xl font-bold text-white">Catalyst</span>
+      </div>
+      <nav class="flex flex-col mt-4">
+        <a href="dashboard.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-home w-6 h-6 mr-3"></i>
+          Dashboard
+        </a>
+        <a href="data.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-database w-6 h-6 mr-3"></i>
+          Data
+        </a>
+        <a href="todo.html" class="flex items-center py-3 px-6 bg-blue-600 rounded-md text-white">
+          <i class="fas fa-tasks w-6 h-6 mr-3"></i>
+          To-Do
+        </a>
+        <a href="reports.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-file-alt w-6 h-6 mr-3"></i>
+          Reports
+        </a>
+        <a href="health.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-heartbeat w-6 h-6 mr-3"></i>
+          Health
+        </a>
+        <a href="recommendations.html" class="flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 rounded-md">
+          <i class="fas fa-star w-6 h-6 mr-3"></i>
+          Recommendations
+        </a>
+      </nav>
+      <div class="mt-auto flex flex-col p-6">
+        <a href="data.html" class="flex items-center text-gray-300 hover:bg-gray-700 py-3 px-6 rounded-md">
+          <svg class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1018.364 4.34M9 12h.01M15 12h.01M7.125 12.625a1.5 1.5 0 013 0M13.875 12.625a1.5 1.5 0 113 0M4 6.75A9 9 0 0112 3a9 9 0 018 5.25" />
+          </svg>
+          Settings
+        </a>
+        <a href="#" class="flex items-center text-gray-300 hover:bg-gray-700 py-3 px-6 rounded-md">
+          <svg class="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+          </svg>
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="flex-1 p-6 bg-gray-100 overflow-y-auto">
+      <h1 class="text-2xl font-semibold mb-4">To-Do List for John Doe</h1>
+
+      <!-- Alert Block -->
+      <div id="alertBlock" class="bg-red-500 text-white rounded-lg p-4 mb-6">
+        <h2 class="font-semibold">⚠️ Alert!</h2>
+        <p id="alertMessage">You are on the verge of a breakdown. Please take a moment to relax and check your tasks.</p>
+        <button id="toggleAlert" class="mt-2 bg-white text-red-500 rounded-md px-4 py-2">Switch to Good Status</button>
+      </div>
+
+      <!-- AI Assistant Block -->
+      <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+        <div class="flex items-center">
+          <img src="https://api.adorable.io/avatars/285/ai-avatar.png" alt="AI Assistant" class="w-16 h-16 rounded-full mr-4">
+          <div>
+            <h2 class="text-lg font-semibold">AI Assistant</h2>
+            <p class="text-gray-600">I'm here to help you with your tasks. You can type your queries below.</p>
+          </div>
+        </div>
+        <div class="mt-4">
+          <textarea id="aiInput" rows="3" class="w-full border border-gray-300 rounded-md p-2" placeholder="Type your message here..."></textarea>
+          <button class="mt-2 bg-blue-500 text-white rounded-md px-4 py-2">Send</button>
+        </div>
+        <div id="aiResponse" class="mt-4 text-gray-600"></div>
+      </div>
+
+      <table class="min-w-full border-collapse border border-gray-300">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="border border-gray-300 p-2">Task</th>
+                <th class="border border-gray-300 p-2">Due Date</th>
+                <th class="border border-gray-300 p-2">Status</th>
+                <th class="border border-gray-300 p-2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border border-gray-300 p-2">Submit Vacation Request</td>
+                <td class="border border-gray-300 p-2">2023-10-15</td>
+                <td class="border border-gray-300 p-2">Pending</td>
+                <td class="border border-gray-300 p-2">
+                    <button class="bg-blue-500 text-white rounded-md px-4 py-2" onclick="openModal('Vacation Request', 'Submit Vacation Request', '2023-10-15', 'Pending')">View</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="border border-gray-300 p-2">Drink More Water</td>
+                <td class="border border-gray-300 p-2">Daily Reminder</td>
+                <td class="border border-gray-300 p-2">Ongoing</td>
+                <td class="border border-gray-300 p-2">
+                    <button class="bg-blue-500 text-white rounded-md px-4 py-2" onclick="openModal('Water Reminder', 'Drink More Water', 'Daily Reminder', 'Ongoing')">View</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="border border-gray-300 p-2">Schedule Meeting with AI Coach</td>
+                <td class="border border-gray-300 p-2">2023-10-20</td>
+                <td class="border border-gray-300 p-2">In Progress</td>
+                <td class="border border-gray-300 p-2">
+                    <button class="bg-blue-500 text-white rounded-md px-4 py-2" onclick="openModal('AI Coach Meeting', 'Schedule Meeting with AI Coach', '2023-10-20', 'In Progress')">View</button>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const alertBlock = document.getElementById('alertBlock');
+    const alertMessage = document.getElementById('alertMessage');
+    const toggleAlert = document.getElementById('toggleAlert');
+
+    let isGoodStatus = false; // Initial state is bad alert
+
+    toggleAlert.addEventListener('click', function() {
+        isGoodStatus = !isGoodStatus; // Toggle the state
+
+        if (isGoodStatus) {
+            // Change to good status
+            alertBlock.classList.remove('bg-red-500');
+            alertBlock.classList.add('bg-green-500');
+            alertMessage.textContent = "All is good! Keep up the great work! 🎉";
+            toggleAlert.textContent = "Switch to Bad Status";
+        } else {
+            // Change to bad status
+            alertBlock.classList.remove('bg-green-500');
+            alertBlock.classList.add('bg-red-500');
+            alertMessage.textContent = "You are on the verge of a breakdown. Please take a moment to relax and check your tasks.";
+            toggleAlert.textContent = "Switch to Good Status";
+        }
+        
+    });
+
+    // Simulate typing effect for AI response
+    window.onload = function() {
+      const aiResponse = document.getElementById('aiResponse');
+      const message = "I am here to assist you with your tasks and provide a comprehensive assessment.";
+      let index = 0;
+
+      const typingEffect = setInterval(() => {
+        if (index < message.length) {
+          aiResponse.textContent += message.charAt(index);
+          index++;
+        } else {
+          clearInterval(typingEffect);
+        }
+      }, 50); // Adjust typing speed here
+    };
+  </script>
+
+</body>
+</html>
